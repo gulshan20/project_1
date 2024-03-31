@@ -106,20 +106,25 @@
             //     document.getElementById("invalidcredentials").innerHTML = "invalid credentials";
             // }
             // const data = await response.json();
-            const tokenres = await response.json();
-            const token=tokenres;
+             const tokenres = await response.json();
+            console.log("dssoidsi",tokenres.token);
+            const token=tokenres.token;
+            console.log(token);
             // cookoie_auth=res.cookie()
             // const token=await response.json();
-            if (tokenres == false) {
+            if (token == false) {
                 document.getElementById("invalidcredentials").innerHTML = "<h3>invalid credentials</h3>"
+                return
             }
             // console.log("cookie",cookie_auth)
-            if (tokenres == token)   {
+           else if (tokenres)   {
                 console.log('truuuue');
                 document.getElementById("invalidcredentials").innerHTML = "<h3>Login Successful</h3>"
                 window.location.href="http://localhost:3001/dashboard";
             }
             console.log("token", token);
+
+
 
 
 
