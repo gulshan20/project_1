@@ -177,13 +177,15 @@ router.post("/login",async(req,res)=>{
  //   }
  // })
  // let  flag=true;
- let  token=true;
- if(a==''){
+let  token;
+ if(a.length==0){
    // flag=false;
-     token=true;
+     token=false;
+     res.json({token})
    // return
  }
- if(a!=''){
+ console.log("ree",a!='')
+ if(a.length>0){
    if(a[0]['password']!=""){  let z=(a[0]['salt'])
    console.log(z)
    const y=md5(z+userpassword);
@@ -195,28 +197,26 @@ router.post("/login",async(req,res)=>{
    if(!(a[0]['password']==y)){
      
        token=false;
+       res.json({token})
        
    }//else{
    //   flag=true;
    // // }
    // flag=true;
-   if((a[0]['password']==y)){
+   if(a[0]['password']==y){
      let jwtSecretKey = process.env.JWT_SECRET_KEY;
      
      token=jwt.sign({userid:a[0].id,username:a[0].name}, jwtSecretKey,{expiresIn:'1h'}) ;
      res.cookie('auth',token,{maxAge:1000*60*60*10,
      httpOnly:true}).status(200)
-     
+     res.json({token})
  }
 
  }
 } 
 // console.log("flg",flag)
 console.log("token",token)
-// var cookie_t = req.cookies.auth;
-// console.log("cookie_t",cookie_t)
-// res.json(flag);
-res.json(token);
+//
 });   
     
   
